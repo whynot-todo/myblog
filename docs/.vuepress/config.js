@@ -1,8 +1,8 @@
 const Nav = require('./nav.js')
 
 module.exports = {
-    base: '/myblog/', /* 基础虚拟路径 */
-    dest: './dist/docs', /* 打包文件基础路径, 在命令所在目录下 */
+    base: '/myblog/docs/', /* 基础虚拟路径 */
+    dest: 'docs/dist', /* 打包文件基础路径, 在命令所在目录下 */
     title: '我的博客',
     description: '客官要点什么酒',
     markdown: {
@@ -20,7 +20,7 @@ module.exports = {
         // 在github上编辑
         repo: 'https://github.com/whynot-todo/myblog/',
         repoLabel: '查看源码',
-        docsBranch: 'main',
+        docsBranch: 'main/docs',
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！'
     }

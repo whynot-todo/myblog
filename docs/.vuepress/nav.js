@@ -1,3 +1,5 @@
+// 横向栏的配置
+
 module.exports = [
     {
         text: '面试宝典',
