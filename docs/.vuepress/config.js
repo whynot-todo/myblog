@@ -1,16 +1,18 @@
+const Nav = require('./nav.js')
+
 module.exports = {
     base: '/myblog/', /* 基础虚拟路径 */
     dest: 'docs/dist', /* 打包文件基础路径, 在命令所在目录下 */
     title: '我的博客',
     description: '客官要点什么酒',
+    markdown: {
+        lineNumbers: true
+    },
     themeConfig: {
-        sidebar: [
-            {
-                title: 'Group 1',
-                children: ['/chapter1/01_创建工具包项目']
-            }
-
-        ]
+        nav: Nav,
+        sidebar: 'auto',
+        editLinks: true,
+        editLinkText: '在 GitHub 上编辑此页 ！'
     }
 }
 
