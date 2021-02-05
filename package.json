@@ -6,7 +6,8 @@
   "scripts": {
     "start": "vuepress dev docs",
     "build": "vuepress build docs",
-    "deploy": "gh-pages -d docs/dist"
+    "deploy": "gh-pages -d docs/dist",
+    "publish": "npm run build & git add ./ & git commit -m 'deploy' & npm run deploy"
   },
   "author": "",
   "license": "ISC",
