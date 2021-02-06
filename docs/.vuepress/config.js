@@ -6,7 +6,6 @@ module.exports = {
     dest: 'docs/dist', /* 打包文件基础路径, 在命令所在目录下 */
     title: '有何不可',
     description: '崇尚极简主义、MarkDown与思维导图的重度使用者',
-    theme: 'reco',
     markdown: {
         lineNumbers: true
     },
