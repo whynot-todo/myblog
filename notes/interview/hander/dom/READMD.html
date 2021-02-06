@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>理解事件冒泡与事件委托 | 有何不可</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    
+    <meta name="description" content="崇尚极简主义、MarkDown与思维导图的重度使用者">
+    
+    <link rel="preload" href="/myblog/assets/css/0.styles.636fb785.css" as="style"><link rel="preload" href="/myblog/assets/js/app.6b362dbe.js" as="script"><link rel="preload" href="/myblog/assets/js/2.89e2299b.js" as="script"><link rel="preload" href="/myblog/assets/js/19.c64efffa.js" as="script"><link rel="prefetch" href="/myblog/assets/js/10.e2bfe18e.js"><link rel="prefetch" href="/myblog/assets/js/11.950cea33.js"><link rel="prefetch" href="/myblog/assets/js/12.82829417.js"><link rel="prefetch" href="/myblog/assets/js/13.e574c4ab.js"><link rel="prefetch" href="/myblog/assets/js/14.7cac3c18.js"><link rel="prefetch" href="/myblog/assets/js/15.33e222b0.js"><link rel="prefetch" href="/myblog/assets/js/16.6545dbe4.js"><link rel="prefetch" href="/myblog/assets/js/17.fe1db360.js"><link rel="prefetch" href="/myblog/assets/js/18.1b8b6c8d.js"><link rel="prefetch" href="/myblog/assets/js/20.8c92569b.js"><link rel="prefetch" href="/myblog/assets/js/21.912e3740.js"><link rel="prefetch" href="/myblog/assets/js/22.583da0c2.js"><link rel="prefetch" href="/myblog/assets/js/23.71419335.js"><link rel="prefetch" href="/myblog/assets/js/24.6cc5659e.js"><link rel="prefetch" href="/myblog/assets/js/25.9aa88f75.js"><link rel="prefetch" href="/myblog/assets/js/3.c033293e.js"><link rel="prefetch" href="/myblog/assets/js/4.9e72dc61.js"><link rel="prefetch" href="/myblog/assets/js/5.575dbb56.js"><link rel="prefetch" href="/myblog/assets/js/6.241e8e4a.js"><link rel="prefetch" href="/myblog/assets/js/7.19915ea8.js"><link rel="prefetch" href="/myblog/assets/js/8.e52b5822.js"><link rel="prefetch" href="/myblog/assets/js/9.36e1ca79.js">
+    <link rel="stylesheet" href="/myblog/assets/css/0.styles.636fb785.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/myblog/" class="home-link router-link-active"><!----> <span class="site-name">有何不可</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试宝典" class="dropdown-title"><span class="title">面试宝典</span> <span class="arrow down"></span></button> <button type="button" aria-label="面试宝典" class="mobile-dropdown-title"><span class="title">面试宝典</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/JS/" class="nav-link">
+  JS
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/algorithm/" class="nav-link">
+  JS数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/hander/string/01_相关算法与API.html" class="nav-link">
+  手写代码
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/network/index.html" class="nav-link">
+  网络
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/Vue/VueRouter/index.html" class="nav-link">
+  Vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具" class="dropdown-title"><span class="title">工具</span> <span class="arrow down"></span></button> <button type="button" aria-label="工具" class="mobile-dropdown-title"><span class="title">工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Vuepress
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/myblog/notes/utils/Vuepress/01_导航栏分类.html" class="nav-link">
+  基本使用
+</a></li></ul></li><li class="dropdown-item"><!----> <a href="/myblog/notes/utils/Git/" class="nav-link">
+  Git
+</a></li></ul></div></div> <a href="https://github.com/whynot-todo/myblog/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试宝典" class="dropdown-title"><span class="title">面试宝典</span> <span class="arrow down"></span></button> <button type="button" aria-label="面试宝典" class="mobile-dropdown-title"><span class="title">面试宝典</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/JS/" class="nav-link">
+  JS
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/algorithm/" class="nav-link">
+  JS数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/hander/string/01_相关算法与API.html" class="nav-link">
+  手写代码
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/network/index.html" class="nav-link">
+  网络
+</a></li><li class="dropdown-item"><!----> <a href="/myblog/notes/interview/Vue/VueRouter/index.html" class="nav-link">
+  Vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具" class="dropdown-title"><span class="title">工具</span> <span class="arrow down"></span></button> <button type="button" aria-label="工具" class="mobile-dropdown-title"><span class="title">工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Vuepress
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/myblog/notes/utils/Vuepress/01_导航栏分类.html" class="nav-link">
+  基本使用
+</a></li></ul></li><li class="dropdown-item"><!----> <a href="/myblog/notes/utils/Git/" class="nav-link">
+  Git
+</a></li></ul></div></div> <a href="https://github.com/whynot-todo/myblog/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/myblog/notes/interview/hander/string/01_相关算法与API.html" class="sidebar-link">字符串</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>对象</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数组</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>后台</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>交互</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/myblog/notes/interview/hander/dom/READMD.html" aria-current="page" class="active sidebar-link">DOM</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/myblog/notes/interview/hander/dom/READMD.html#理解事件冒泡与事件委托" class="sidebar-link">理解事件冒泡与事件委托</a></li><li class="sidebar-sub-header"><a href="/myblog/notes/interview/hander/dom/READMD.html#api-相关" class="sidebar-link">API 相关</a></li><li class="sidebar-sub-header"><a href="/myblog/notes/interview/hander/dom/READMD.html#编码实现" class="sidebar-link">编码实现</a></li><li class="sidebar-sub-header"><a href="/myblog/notes/interview/hander/dom/READMD.html#测试" class="sidebar-link">测试</a></li><li class="sidebar-sub-header"><a href="/myblog/notes/interview/hander/dom/READMD.html#小插曲" class="sidebar-link">小插曲</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/myblog/notes/interview/hander/dom/READMD.html#event-target与event-currenttarget的区别" class="sidebar-link">event.target与event.currentTarget的区别</a></li></ul></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="理解事件冒泡与事件委托"><a href="#理解事件冒泡与事件委托" class="header-anchor">#</a> 理解事件冒泡与事件委托</h2> <ul><li>事件冒泡的流程
+<ul><li>基于DOM树形结构</li> <li>事件在目标元素上处理后, 会由内向外(上)逐层传递</li> <li>应用场景: 事件代理/委托/委派</li></ul></li></ul> <p><img src="https://zxfjd3g.github.io/atguigu_utils-docs/assets/img/image-20201215141059095.a3dce0aa.png" alt="image-20201215141059095"></p> <ul><li>事件委托/代理
+<ul><li>将多个子元素的同类事件监听委托给(绑定在)共同的一个父组件上</li> <li>好处：
+<ul><li>减少内存占用(事件监听回调从n变为</li> <li>动态添加的内部元素也能响应</li></ul></li></ul></li></ul> <h2 id="api-相关"><a href="#api-相关" class="header-anchor">#</a> API 相关</h2> <ul><li>语法：addEventListener(element, type, fn, selector)</li> <li>说明：如果selector没有，直接给element绑定事件，如果selector有，将selector对应的多个元素的事件委托绑定给父元素element</li></ul> <h2 id="编码实现"><a href="#编码实现" class="header-anchor">#</a> 编码实现</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token comment">/* 
+语法：addEventListener(element, type, fn, selector)
+说明：如果selector没有，直接给element绑定事件，
+  如果selector有，将selector对应的多个元素的事件委托绑定给父元素element
+*/</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> type<span class="token punctuation">,</span> fn<span class="token punctuation">,</span> selector</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 如果没有指定selector, 普通的事件绑定</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>selector<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    element<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> fn<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment">// 否则是代委托的事件绑定</span>
+    element<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 得到真正发生事件的目标元素</span>
+      <span class="token keyword">const</span> target <span class="token operator">=</span> event<span class="token punctuation">.</span>target
+      <span class="token comment">// 如果与选择器匹配</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>target<span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 调用处理事件的回调fn, 并指定this为目标元素, 参数为event</span>
+        <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> event<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h2 id="测试"><a href="#测试" class="header-anchor">#</a> 测试</h2> <div class="language-html line-numbers-mode"><pre class="language-html"><code><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>en<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>UTF-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>自定义事件监听<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>AAA1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>AAA2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>AAA3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>AAA4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- 功能: 点击每行提示对应的文本 --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>../dist/atguigu-utils.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+    <span class="token comment">// 不使用事件委托</span>
+    <span class="token comment">// document.querySelectorAll('ul&gt;li').forEach(li =&gt; {</span>
+    <span class="token comment">//   // li.addEventListener('click', function (event) {</span>
+    <span class="token comment">//   //   alert(this.innerHTML)</span>
+    <span class="token comment">//   // })</span>
+    <span class="token comment">//   aUtils.addEventListener(li, 'click', function (event) {</span>
+    <span class="token comment">//     // alert(event.target.innerHTML)</span>
+    <span class="token comment">//     alert(this.innerHTML)</span>
+    <span class="token comment">//   })</span>
+    <span class="token comment">// })</span>
+
+    <span class="token comment">// 使用事件委托</span>
+    <span class="token keyword">const</span> ul <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'ul'</span><span class="token punctuation">)</span>
+    aUtils<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>ul<span class="token punctuation">,</span> <span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// alert(this.innerHTML)</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">'li'</span><span class="token punctuation">)</span>
+
+  </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br></div></div><h2 id="小插曲"><a href="#小插曲" class="header-anchor">#</a> 小插曲</h2> <h3 id="event-target与event-currenttarget的区别"><a href="#event-target与event-currenttarget的区别" class="header-anchor">#</a> <code>event.target</code>与<code>event.currentTarget</code>的区别</h3> <p>通过事件冒泡和事件委托我们很容易就能得出结论</p> <ul><li><code>event.target</code>是触发事件的元素</li> <li><code>event.currentTarget</code>是绑定事件的元素</li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/whynot-todo/myblog/edit/main/docs/notes/interview/hander/dom/READMD.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页 ！</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/myblog/notes/interview/hander/communication/pub-sub.html" class="prev">
+        手写消息订阅与发布
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/myblog/assets/js/app.6b362dbe.js" defer></script><script src="/myblog/assets/js/2.89e2299b.js" defer></script><script src="/myblog/assets/js/19.c64efffa.js" defer></script>
+  </body>
+</html>
