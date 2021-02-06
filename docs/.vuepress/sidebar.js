@@ -1,5 +1,8 @@
 module.exports = {
-    "/notes/": 'auto',
+    "/notes/interview/algorithm/": [
+        '',
+        '02_链表'
+    ],
     "/notes/interview/array/": [
         {
             title: "1. 框架指南",
@@ -17,4 +20,5 @@ module.exports = {
             ],
         },
     ],
+    "/notes/": 'auto',
 }

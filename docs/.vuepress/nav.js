@@ -4,7 +4,7 @@ module.exports = [
     {
         text: '面试宝典',
         items: [
-            { text: '手撕算法', link: '/notes/interview/algorithm/JS排序算法.md' },
+            { text: 'JS数据结构', link: '/notes/interview/algorithm/' },
         ]
     },
     {

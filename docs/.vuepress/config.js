@@ -1,17 +1,20 @@
 const Nav = require('./nav.js')
+const SideBar = require('./sidebar.js')
 
 module.exports = {
     base: '/myblog/', /* 基础虚拟路径 */
     dest: 'docs/dist', /* 打包文件基础路径, 在命令所在目录下 */
     title: '有何不可',
     description: '崇尚极简主义、MarkDown与思维导图的重度使用者',
+    theme: 'reco',
     markdown: {
         lineNumbers: true
     },
     plugins: ['@vuepress/back-to-top'],
     themeConfig: {
         nav: Nav,
-        sidebar: 'auto',
+        subSidebar: 'auto',
+        sidebar: SideBar,
         // 最近更新
         lastUpdated: 'Last Updated',
         // 标题链接的深度
