@@ -9,6 +9,7 @@ module.exports = {
     markdown: {
         lineNumbers: true
     },
+    theme: 'reco',
     plugins: ['@vuepress/back-to-top'],
     themeConfig: {
         nav: Nav,
