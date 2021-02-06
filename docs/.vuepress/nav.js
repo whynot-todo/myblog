@@ -7,8 +7,8 @@ module.exports = [
             { text: 'JS', link: '/notes/interview/JS/' },
             { text: 'JS数据结构', link: '/notes/interview/algorithm/' },
             { text: '手写代码', link: '/notes/interview/hander/string/01_相关算法与API.md' },
-            { text: '网络', link: '/notes/interview/network/index.md' },
-            { text: 'Vue', link: '/notes/interview/Vue/VueRouter/index.md' },
+            { text: '网络', link: '/notes/interview/network/network.md' },
+            { text: 'Vue', link: '/notes/interview/Vue/VueRouter/vuerouter.md' },
         ]
     },
     {
@@ -21,7 +21,7 @@ module.exports = [
                 ]
             },
             {
-                text: 'Git', link: '/notes/utils/Git/'
+                text: 'Git', link: '/notes/utils/Git/git.md'
             },
         ]
     }
