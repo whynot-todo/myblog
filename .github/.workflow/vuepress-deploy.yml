@@ -1,24 +1,17 @@
-name: "github actions build and deploy gh-pages"
-on:
-    push:
-        branches:
-            - main
+name: Build and Deploy
+on: [push]
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v2.3.1
-              with:
-                  persist-credentials: false
-            - name: install and build
-              run: |
-                  npm install
-                  npm run build
+              uses: actions/checkout@master
 
-            - name: Deploy
-              uses: JamesIves/github-pages-deploy-action@3.5.9
-              with:
-                  ACCESS_TOKEN: 5175849aecc003798c89c4632fdef6bbfb49be23
-                  BRANCH: gh-pages
-                  FOLDER: docs/dist
+            - name: vuepress-deploy
+              uses: jenkey2011/vuepress-deploy@master
+              env:
+                  ACCESS_TOKEN: dc8370e0aa7a34b80fd6a98c89493962f3dc32b9
+                  TARGET_REPO: whynot-todo/myblog
+                  BUILD_SCRIPT: npm run build
+                  BUILD_DIR: doc/dist/
+                  CNAME: https://www.dachangxiaoyuan.top

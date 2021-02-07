@@ -8,7 +8,7 @@
     "publish": "npm run build & git add ./ & git commit -m 'deploy' & git push & npm run deploy",
     "build": "vuepress build docs",
     "deploy": "gh-pages -d docs/dist",
-    "commit": "git add ./ & git commit -m 'commit' "
+    "push": "git add ./ & git commit -m 'commit' & git push"
   },
   "author": "",
   "license": "ISC",
