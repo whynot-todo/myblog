@@ -10,7 +10,7 @@
 - Null
 - Undefined
 - Symbol（ES6新增数据类型）
-- bigInt
+- bigInt,[说明](https://segmentfault.com/a/1190000019912017)
 
 引用数据类型统称为Object类型，细分的话有
 
