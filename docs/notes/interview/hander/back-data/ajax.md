@@ -26,6 +26,8 @@
 
 ## 编码实现
 
+![](https://gitee.com/cai_shengfu/picgo/raw/master/img/20210207172848.png)
+
 ```js
 /* 发送任意类型请求的函数 */
 function axios({

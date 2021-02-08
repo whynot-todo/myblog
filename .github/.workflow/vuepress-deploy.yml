@@ -14,4 +14,3 @@ jobs:
                   TARGET_REPO: whynot-todo/myblog
                   BUILD_SCRIPT: npm run build
                   BUILD_DIR: doc/dist/
-                  CNAME: https://www.dachangxiaoyuan.top
